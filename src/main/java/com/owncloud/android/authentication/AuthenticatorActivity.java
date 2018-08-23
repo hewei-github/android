@@ -188,6 +188,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     public static final String SUBDOMAIN_SERVER_INPUT_TYPE = "prefix";
     public static final String DIRECTORY_SERVER_INPUT_TYPE = "suffix";
     public static final int NO_ICON = 0;
+    public static final String EMPTY_STRING = "";
 
     /// parameters from EXTRAs in starter Intent
     private byte mAction;
@@ -207,7 +208,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     private TextView mServerStatusView;
 
     private TextWatcher mHostUrlInputWatcher;
-    private String mServerStatusText = "";
+    private String mServerStatusText = EMPTY_STRING;
     private int mServerStatusIcon;
 
     private boolean mServerIsChecked;
@@ -227,10 +228,10 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
     private WebView mLoginWebView;
 
-    private String mAuthStatusText = "";
+    private String mAuthStatusText = EMPTY_STRING;
     private int mAuthStatusIcon;
 
-    private String mAuthToken = "";
+    private String mAuthToken = EMPTY_STRING;
     private AuthenticatorAsyncTask mAsyncTask;
 
     private boolean mIsFirstAuthAttempt;
@@ -725,7 +726,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                     if (mAuthStatusIcon != 0) {
                         Log_OC.d(TAG, "onTextChanged: hiding authentication status");
                         mAuthStatusIcon = 0;
-                        mAuthStatusText = "";
+                        mAuthStatusText = EMPTY_STRING;
                         showAuthStatus();
                     }
                 }
@@ -786,7 +787,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             mUsernameInput.setEnabled(false);
             mUsernameInput.setFocusable(false);
         }
-        mPasswordInput.setText(""); // clean password to avoid social hacking
+        mPasswordInput.setText(EMPTY_STRING); // clean password to avoid social hacking
         if (isPasswordExposed) {
             showPassword();
         }
@@ -1143,7 +1144,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             }
 
         } else {
-            mServerStatusText = "";
+            mServerStatusText = EMPTY_STRING;
             mServerStatusIcon = 0;
             if (!webViewLoginMethod) {
                 showServerStatus();
@@ -1369,7 +1370,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 if (!webViewLoginMethod && !mUsernameInput.getText().toString().trim().equals(username)) {
                     // fail - not a new account, but an existing one; disallow
                     result = new RemoteOperationResult(ResultCode.ACCOUNT_NOT_THE_SAME);
-                    mAuthToken = "";
+                    mAuthToken = EMPTY_STRING;
                     updateAuthStatusIconAndText(result);
                     showAuthStatus();
                     Log_OC.d(TAG, result.getLogMessage());
@@ -1588,7 +1589,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 mServerStatusText = getResources().getString(R.string.untrusted_domain);
                 break;
             default:
-                mServerStatusText = "";
+                mServerStatusText = EMPTY_STRING;
                 mServerStatusIcon = 0;
                 break;
         }
@@ -1684,7 +1685,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         }
     }
 
-
     /**
      * Processes the result of the access check performed to try the user credentials.
      *
@@ -1756,7 +1756,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             updateServerStatusIconAndText(result);
             showServerStatus();
             mAuthStatusIcon = 0;
-            mAuthStatusText = "";
+            mAuthStatusText = EMPTY_STRING;
             if (!webViewLoginMethod) {
                 showAuthStatus();
 
@@ -1788,7 +1788,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             Log_OC.d(TAG, "Access failed: " + result.getLogMessage());
         }
     }
-
 
     /**
      * Updates the authentication token.
@@ -1839,7 +1838,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
     }
 
-
     /**
      * Creates a new account through the Account Authenticator that started this activity.
      *
@@ -1888,7 +1886,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
             if (isOAuth || isSaml) {
                 // with external authorizations, the password is never input in the app
-                mAccountMgr.addAccountExplicitly(mAccount, "", null);
+                mAccountMgr.addAccountExplicitly(mAccount, EMPTY_STRING, null);
             } else {
                 if (!webViewLoginMethod) {
                     mAccountMgr.addAccountExplicitly(mAccount, mPasswordInput.getText().toString(), null);
@@ -1949,7 +1947,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         }
     }
 
-
     /**
      * Starts and activity to open the 'new account' page in the ownCloud web site
      *
@@ -1963,13 +1960,12 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         startActivity(register);
     }
 
-
     /**
      * Updates the content and visibility state of the icon and text associated
      * to the last check on the ownCloud server.
      */
     private void showServerStatus() {
-        if (mServerStatusIcon == NO_ICON && "".equals(mServerStatusText)) {
+        if (mServerStatusIcon == NO_ICON && EMPTY_STRING.equals(mServerStatusText)) {
             mServerStatusView.setVisibility(View.INVISIBLE);
         } else {
             mServerStatusView.setText(mServerStatusText);
@@ -1978,13 +1974,12 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         }
     }
 
-
     /**
      * Updates the content and visibility state of the icon and text associated
      * to the interactions with the OAuth authorization server.
      */
     private void showAuthStatus() {
-        if (mAuthStatusIcon == NO_ICON && "".equals(mAuthStatusText)) {
+        if (mAuthStatusIcon == NO_ICON && EMPTY_STRING.equals(mAuthStatusText)) {
             mAuthStatusView.setVisibility(View.INVISIBLE);
         } else {
             mAuthStatusView.setText(mAuthStatusText);
@@ -1992,7 +1987,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             mAuthStatusView.setVisibility(View.VISIBLE);
         }
     }
-
 
     private void showRefreshButton(boolean show) {
         if (webViewLoginMethod && mRefreshButton != null) {
