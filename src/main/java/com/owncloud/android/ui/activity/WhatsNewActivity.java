@@ -233,7 +233,7 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
     private final class FeaturesWebViewAdapter extends FragmentPagerAdapter {
         private String[] mWebUrls;
 
-        public FeaturesWebViewAdapter(FragmentManager fm, String[] webUrls) {
+        public FeaturesWebViewAdapter(FragmentManager fm, String... webUrls) {
             super(fm);
             mWebUrls = webUrls;
         }
@@ -288,7 +288,7 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
 
         private FeatureItem[] mFeatures;
 
-        public FeaturesViewAdapter(FragmentManager fm, FeatureItem[] features) {
+        public FeaturesViewAdapter(FragmentManager fm, FeatureItem... features) {
             super(fm);
             mFeatures = features;
         }
