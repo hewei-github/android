@@ -1,4 +1,4 @@
-/**
+/*
  *   ownCloud Android client application
  *
  *   @author masensio
@@ -16,7 +16,6 @@
  *
  *   You should have received a copy of the GNU General Public License
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
  */
 package com.owncloud.android.ui.adapter;
 
@@ -45,7 +44,7 @@ public class X509CertificateViewAdapter implements SslUntrustedCertDialog.Certif
     
     //private final static String TAG = X509CertificateViewAdapter.class.getSimpleName();
     
-    private X509Certificate mCertificate = null;
+    private X509Certificate mCertificate;
 
     private static final String TAG = X509CertificateViewAdapter.class.getSimpleName();
 
@@ -55,7 +54,7 @@ public class X509CertificateViewAdapter implements SslUntrustedCertDialog.Certif
     
     @Override
     public void updateCertificateView(View dialogView) {
-        TextView nullCerView = (TextView) dialogView.findViewById(R.id.null_cert);
+        TextView nullCerView = dialogView.findViewById(R.id.null_cert);
         
         if (mCertificate != null) {
             nullCerView.setVisibility(View.GONE);
