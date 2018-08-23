@@ -210,8 +210,8 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
         final boolean isMultiAccount = context.getResources().getBoolean(R.bool.multiaccount_support);
 
         return (isFirstRun() && context instanceof AccountAuthenticatorActivity) || (!(isFirstRun() &&
-                (context instanceof FileDisplayActivity)) && !(context instanceof PassCodeActivity) &&
-                (FeatureList.getFiltered(getLastSeenVersionCode(), isFirstRun(), isBeta, isMultiAccount).length > 0));
+                context instanceof FileDisplayActivity) && !(context instanceof PassCodeActivity) &&
+                FeatureList.getFiltered(getLastSeenVersionCode(), isFirstRun(), isBeta, isMultiAccount).length > 0);
     }
 
     @Override
